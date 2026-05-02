@@ -1,0 +1,22 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Runtime outputs and downloaded model checkpoints
+outputs/
+outputs_*/
+outputs-openvoice*/
+outputs_openvoice*/
+OpenVoice/output/
+OpenVoice/checkpoints/
+OpenVoice/checkpoints_v2/
+MeloTTS/checkpoints/
+
+# Local environment files
+.venv/
+venv/
+env/
+.env
+.cache/
+*.egg-info/
+examples/*.wav

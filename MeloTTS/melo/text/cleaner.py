@@ -1,20 +1,32 @@
-from . import chinese, japanese, english, chinese_mix, korean, french, spanish
 from . import cleaned_text_to_sequence
 import copy
+import importlib
 
-language_module_map = {"ZH": chinese, "JP": japanese, "EN": english, 'ZH_MIX_EN': chinese_mix, 'KR': korean,
-                    'FR': french, 'SP': spanish, 'ES': spanish}
+language_module_map = {
+    "ZH": "chinese",
+    "JP": "japanese",
+    "EN": "english",
+    "ZH_MIX_EN": "chinese_mix",
+    "KR": "korean",
+    "FR": "french",
+    "SP": "spanish",
+    "ES": "spanish",
+}
+
+
+def get_language_module(language):
+    return importlib.import_module(f".{language_module_map[language]}", package=__package__)
 
 
 def clean_text(text, language):
-    language_module = language_module_map[language]
+    language_module = get_language_module(language)
     norm_text = language_module.text_normalize(text)
     phones, tones, word2ph = language_module.g2p(norm_text)
     return norm_text, phones, tones, word2ph
 
 
 def clean_text_bert(text, language, device=None):
-    language_module = language_module_map[language]
+    language_module = get_language_module(language)
     norm_text = language_module.text_normalize(text)
     phones, tones, word2ph = language_module.g2p(norm_text)
     

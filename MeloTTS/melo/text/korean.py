@@ -2,6 +2,7 @@
 # compatible with Julius https://github.com/julius-speech/segmentation-kit
 import re
 import unicodedata
+import importlib.util
 
 from transformers import AutoTokenizer
 
@@ -53,7 +54,8 @@ def korean_text_to_phonemes(text, character: str = "hangeul") -> str:
 
     """
     global g2p_kr  # pylint: disable=global-statement
-    if g2p_kr is None:
+    use_fallback = importlib.util.find_spec("mecab") is None
+    if g2p_kr is None and not use_fallback:
         from g2pkk import G2p
 
         g2p_kr = G2p()
@@ -66,8 +68,18 @@ def korean_text_to_phonemes(text, character: str = "hangeul") -> str:
         return text
 
     text = normalize(text)
-    text = g2p_kr(text)
+    fallback = use_fallback
+    try:
+        if not fallback:
+            text = g2p_kr(text)
+    except Exception:
+        # Korean-only fallback for environments where python-mecab-ko is present
+        # but g2pkk cannot initialize its MeCab object correctly.
+        fallback = True
     text = list(hangul_to_jamo(text))  # '하늘' --> ['ᄒ', 'ᅡ', 'ᄂ', 'ᅳ', 'ᆯ']
+    if fallback:
+        valid_symbols = set(symbols)
+        text = [ch for ch in text if ch in valid_symbols]
     return "".join(text)
 
 def text_normalize(text):

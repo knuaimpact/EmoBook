@@ -186,8 +186,11 @@ def text_normalize(text):
     return text
 
 model_id = 'bert-base-uncased'
-tokenizer = AutoTokenizer.from_pretrained(model_id)
+tokenizer = None
 def g2p_old(text):
+    global tokenizer
+    if tokenizer is None:
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenized = tokenizer.tokenize(text)
     # import pdb; pdb.set_trace()
     phones = []

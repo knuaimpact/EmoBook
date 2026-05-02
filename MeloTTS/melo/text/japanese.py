@@ -11,7 +11,7 @@ punctuation = ["!", "?", "…", ",", ".", "'", "-"]
 try:
     import MeCab
 except ImportError as e:
-    raise ImportError("Japanese requires mecab-python3 and unidic-lite.") from e
+    MeCab = None
 from num2words import num2words
 
 _CONVRULES = [
@@ -364,10 +364,12 @@ def hira2kata(text: str) -> str:
 
 _SYMBOL_TOKENS = set(list("・、。？！"))
 _NO_YOMI_TOKENS = set(list("「」『』―（）［］[]"))
-_TAGGER = MeCab.Tagger()
+_TAGGER = MeCab.Tagger() if MeCab is not None else None
 
 
 def text2kata(text: str) -> str:
+    if _TAGGER is None:
+        raise ImportError("Japanese requires mecab-python3 and unidic-lite.")
     parsed = _TAGGER.parse(text)
     res = []
     for line in parsed.split("\n"):
@@ -567,8 +569,11 @@ def distribute_phone(n_phone, n_word):
 # tokenizer = AutoTokenizer.from_pretrained('cl-tohoku/bert-base-japanese-v3')
 
 model_id = 'tohoku-nlp/bert-base-japanese-v3'
-tokenizer = AutoTokenizer.from_pretrained(model_id)
+tokenizer = None
 def g2p(norm_text):
+    global tokenizer
+    if tokenizer is None:
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
 
     tokenized = tokenizer.tokenize(norm_text)
     phs = []
