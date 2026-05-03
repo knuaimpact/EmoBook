@@ -27,9 +27,11 @@
 ## 사용 방법
 
 현재는 오디오 샘플과 테스트 스크립트 골격만 포함되어 있으므로, 기능 구현 후 아래와 같은 방식으로 실행할 수 있도록 확장하는 것을 권장합니다.
-
+```
+!pip install -U voxcpm soundfile gradio
+```
 ```powershell
-python voxcmp_test.py
+python voxcpm_test.py
 ```
 
 ## 권장 개발 환경
