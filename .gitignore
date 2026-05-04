@@ -23,7 +23,6 @@ __pycache__/
 venv/
 
 # Big stuff
-data/
 models/
 *.zip
 *.pt
@@ -45,3 +44,5 @@ download/
 .DS_Store
 
 venv/
+
+OpenVoice/
