@@ -1,0 +1,47 @@
+
+# datasets
+*.csv
+*.zip
+*.tar
+*.gz
+
+# models / binaries
+*.h5
+*.pt
+*.pth
+*.onnx
+*.bin
+
+uploads/
+models/
+
+# Python
+__pycache__/
+*.pyc
+
+# Env
+venv/
+
+# Big stuff
+data/
+models/
+*.zip
+*.pt
+
+# cache
+.cache/
+
+# model weights
+*.pth
+
+# optional: only ignore specific folders instead
+# base_speakers/
+# converter/checkpoint.pth
+
+# downloads
+download/
+
+# mac
+.DS_Store
+
+venv/
