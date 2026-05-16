@@ -26,3 +26,22 @@ class LocalStorageService:
             object_key=normalized_key,
             url=f"{self.public_base_url}/{normalized_key}",
         )
+
+    async def save_bytes(
+        self,
+        *,
+        content: bytes,
+        folder: str,
+        filename: str,
+    ) -> StoredObject:
+        safe_name = Path(filename).name
+        object_key = f"{folder.strip('/')}/{uuid4().hex}-{safe_name}"
+        target_path = self.root / object_key
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        target_path.write_bytes(content)
+
+        normalized_key = object_key.replace("\\", "/")
+        return StoredObject(
+            object_key=normalized_key,
+            url=f"{self.public_base_url}/{normalized_key}",
+        )

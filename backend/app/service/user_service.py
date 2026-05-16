@@ -10,4 +10,3 @@ class UserService:
 
     def create_user(self, *, email: str, name: str) -> User:
         return self.user_repository.create(email=email, name=name)
-

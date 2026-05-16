@@ -10,4 +10,3 @@ class ORMModel(BaseModel):
 class Timestamped(ORMModel):
     created_at: datetime
     updated_at: datetime
-

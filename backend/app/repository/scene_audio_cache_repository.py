@@ -54,3 +54,18 @@ class SceneAudioCacheRepository:
         self.db.refresh(cache)
         return cache
 
+    def mark_processing(self, cache: SceneAudioCache) -> SceneAudioCache:
+        cache.status = SceneAudioStatus.processing
+        cache.error_message = None
+        self.db.commit()
+        self.db.refresh(cache)
+        return cache
+
+    def mark_failed(
+        self, cache: SceneAudioCache, *, error_message: str
+    ) -> SceneAudioCache:
+        cache.status = SceneAudioStatus.failed
+        cache.error_message = error_message[:2000]
+        self.db.commit()
+        self.db.refresh(cache)
+        return cache

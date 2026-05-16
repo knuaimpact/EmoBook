@@ -11,6 +11,12 @@ class StoredObject:
 
 
 class StorageService(Protocol):
-    async def save_upload(self, *, file: UploadFile, folder: str) -> StoredObject:
-        ...
+    async def save_upload(self, *, file: UploadFile, folder: str) -> StoredObject: ...
 
+    async def save_bytes(
+        self,
+        *,
+        content: bytes,
+        folder: str,
+        filename: str,
+    ) -> StoredObject: ...

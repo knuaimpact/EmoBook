@@ -7,8 +7,14 @@ from app.schema.tts import (
     TTSSceneRequestCreate,
     TTSSceneRequestRead,
 )
-from app.service.dependencies import get_database
+from app.service.dependencies import (
+    get_database,
+    get_elevenlabs_client,
+    get_storage_service,
+)
 from app.service.tts_service import TTSService
+from app.storage import StorageService
+from app.voice import ElevenLabsClient
 
 router = APIRouter(prefix="/tts", tags=["tts"])
 
@@ -26,8 +32,9 @@ def request_scene_tts(
     return TTSSceneRequestRead(**cache_data, scene_text=scene_text)
 
 
-
-@router.post("/scene-audio-caches/{cache_id}/audio-url", response_model=SceneAudioCacheRead)
+@router.post(
+    "/scene-audio-caches/{cache_id}/audio-url", response_model=SceneAudioCacheRead
+)
 def save_generated_audio_url(
     cache_id: int,
     payload: AudioUrlSaveRequest,
@@ -37,4 +44,21 @@ def save_generated_audio_url(
         cache_id=cache_id,
         audio_url=payload.audio_url,
         audio_object_key=payload.audio_object_key,
+    )
+
+
+@router.post("/generate", response_model=SceneAudioCacheRead)
+async def generate_scene_audio(
+    payload: TTSSceneRequestCreate,
+    db: Session = Depends(get_database),
+    storage_service: StorageService = Depends(get_storage_service),
+    elevenlabs_client: ElevenLabsClient = Depends(get_elevenlabs_client),
+) -> SceneAudioCacheRead:
+    return await TTSService(
+        db,
+        storage_service,
+        elevenlabs_client,
+    ).generate_scene_audio(
+        story_scene_id=payload.story_scene_id,
+        voice_profile_id=payload.voice_profile_id,
     )

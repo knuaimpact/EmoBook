@@ -26,4 +26,3 @@ class SceneAudioCacheRead(Timestamped):
 
 class TTSSceneRequestRead(SceneAudioCacheRead):
     scene_text: str
-

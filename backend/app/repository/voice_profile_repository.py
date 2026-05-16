@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.model.voice_profile import VoiceProfile
+from app.model.voice_profile import VoiceProfile, VoiceProfileStatus
 
 
 class VoiceProfileRepository:
@@ -29,3 +29,22 @@ class VoiceProfileRepository:
         self.db.refresh(voice_profile)
         return voice_profile
 
+    def mark_ready(
+        self, voice_profile: VoiceProfile, *, provider_voice_id: str
+    ) -> VoiceProfile:
+        voice_profile.provider = "elevenlabs"
+        voice_profile.provider_voice_id = provider_voice_id
+        voice_profile.status = VoiceProfileStatus.ready
+        voice_profile.error_message = None
+        self.db.commit()
+        self.db.refresh(voice_profile)
+        return voice_profile
+
+    def mark_failed(
+        self, voice_profile: VoiceProfile, *, error_message: str
+    ) -> VoiceProfile:
+        voice_profile.status = VoiceProfileStatus.failed
+        voice_profile.error_message = error_message[:2000]
+        self.db.commit()
+        self.db.refresh(voice_profile)
+        return voice_profile

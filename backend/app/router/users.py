@@ -14,4 +14,3 @@ def create_user(
     db: Session = Depends(get_database),
 ) -> UserRead:
     return UserService(db).create_user(email=payload.email, name=payload.name)
-
