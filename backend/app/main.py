@@ -6,10 +6,42 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import Base, engine
-from app.model import SceneAudioCache, Story, StoryScene, User, VoiceProfile
-from app.router import stories, tts, users, voice_profiles
+from app.model import (
+    ChildProfile,
+    SceneAudioCache,
+    Story,
+    StoryChoice,
+    StoryScene,
+    User,
+    UserChoiceLog,
+    UserStorySession,
+    VoiceProfile,
+    TTSJob,
+    StoryGenerationJob,
+)
+from app.router import (
+    auth,
+    child_profiles,
+    sessions,
+    stories,
+    tts,
+    users,
+    voice_profiles,
+)
 
-_models = (SceneAudioCache, Story, StoryScene, User, VoiceProfile)
+_models = (
+    ChildProfile,
+    SceneAudioCache,
+    Story,
+    StoryChoice,
+    StoryScene,
+    User,
+    UserChoiceLog,
+    UserStorySession,
+    VoiceProfile,
+    TTSJob,
+    StoryGenerationJob,
+)
 
 
 @asynccontextmanager
@@ -37,8 +69,11 @@ app.mount(
     name="storage",
 )
 
+app.include_router(auth.router, prefix=settings.api_prefix)
+app.include_router(child_profiles.router, prefix=settings.api_prefix)
 app.include_router(users.router, prefix=settings.api_prefix)
 app.include_router(stories.router, prefix=settings.api_prefix)
+app.include_router(sessions.router, prefix=settings.api_prefix)
 app.include_router(voice_profiles.router, prefix=settings.api_prefix)
 app.include_router(tts.router, prefix=settings.api_prefix)
 
@@ -46,4 +81,3 @@ app.include_router(tts.router, prefix=settings.api_prefix)
 @app.get("/health", tags=["health"])
 def health() -> dict[str, str]:
     return {"status": "ok"}
-

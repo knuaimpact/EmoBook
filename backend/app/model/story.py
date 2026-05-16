@@ -13,6 +13,9 @@ class Story(TimestampMixin, Base):
     summary: Mapped[str | None] = mapped_column(Text, nullable=True)
     cover_image_url: Mapped[str | None] = mapped_column(String(1024), nullable=True)
     age_range: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    story_type: Mapped[str] = mapped_column(
+        String(50), default="linear", nullable=False
+    )
 
     scenes = relationship(
         "StoryScene",
@@ -20,4 +23,8 @@ class Story(TimestampMixin, Base):
         cascade="all, delete-orphan",
         order_by="StoryScene.scene_order",
     )
-
+    sessions = relationship(
+        "UserStorySession",
+        back_populates="story",
+        cascade="all, delete-orphan",
+    )
