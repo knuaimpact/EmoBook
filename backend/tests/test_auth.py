@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from app.model.user import User
-from app.service.auth_service import AuthService
+from user.user_model import User
+from auth.auth_service import AuthService
 
 
 def test_signup_flow(client: TestClient, db: Session):

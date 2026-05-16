@@ -1,10 +1,10 @@
 from fastapi.testclient import TestClient
-from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from app.model.child_profile import ChildProfile
-from app.model.story import Story
-from app.model.story_scene import StoryScene
-from app.model.user import User
+from user.child_profile_model import ChildProfile
+from story.story_model import Story
+from story.story_scene_model import StoryScene
+from user.user_model import User
+
 
 def test_interactive_session_flow(client: TestClient, db: Session):
     # Setup Data
@@ -29,7 +29,7 @@ def test_interactive_session_flow(client: TestClient, db: Session):
     # Test Start Session API
     response = client.post(
         f"/api/v1/stories/{story.id}/start",
-        json={"child_profile_id": child.id, "user_id": user.id}
+        json={"child_profile_id": child.id, "user_id": user.id},
     )
     assert response.status_code == 200
     data = response.json()
@@ -40,6 +40,7 @@ def test_interactive_session_flow(client: TestClient, db: Session):
     response = client.get(f"/api/v1/sessions/{session_id}/current-scene")
     assert response.status_code == 200
     assert response.json()["current_scene"]["id"] == scene1.id
+
 
 def test_linear_session_flow(client: TestClient, db: Session):
     # Setup Data
@@ -64,7 +65,7 @@ def test_linear_session_flow(client: TestClient, db: Session):
     # Test Start Session API
     response = client.post(
         f"/api/v1/stories/{story.id}/start",
-        json={"child_profile_id": child.id, "user_id": user.id}
+        json={"child_profile_id": child.id, "user_id": user.id},
     )
     assert response.status_code == 200
     data = response.json()
@@ -73,8 +74,7 @@ def test_linear_session_flow(client: TestClient, db: Session):
 
     # Test Next Scene API
     response = client.post(
-        f"/api/v1/sessions/{session_id}/next",
-        json={"current_scene_id": scene1.id}
+        f"/api/v1/sessions/{session_id}/next", json={"current_scene_id": scene1.id}
     )
     assert response.status_code == 200
     data = response.json()

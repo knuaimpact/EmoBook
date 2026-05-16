@@ -1,9 +1,9 @@
 from sqlalchemy import select
 
-from app.database import Base, SessionLocal, engine
-from app.model.story import Story
-from app.model.story_scene import StoryScene
-from app.model.user import User
+from common.database import Base, SessionLocal, engine
+from story.story_model import Story
+from story.story_scene_model import StoryScene
+from user.user_model import User
 
 
 def main() -> None:
