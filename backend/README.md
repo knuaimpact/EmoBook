@@ -87,10 +87,9 @@ pytest tests/
 ```
 
 ### 5. API 문서 확인 (서버 실행 후 접속)
-* 👉 **Swagger UI (추천)**: [http://localhost:8000/docs](http://localhost:8000/docs)
-  * 가장 일반적으로 쓰이는 인터랙티브 API 문서입니다. 화면에서 직접 `Try it out` 버튼을 눌러 API를 테스트해 볼 수 있습니다.
+* 👉 **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
 * 👉 **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
-  * API 스펙을 한눈에 깔끔하게 읽기 좋은 형태의 문서입니다.
+  * API 스펙을 한눈에 깔끔하게 읽기 좋은 형태의 문서
 * 👉 **OpenAPI JSON**: [http://localhost:8000/openapi.json](http://localhost:8000/openapi.json)
-  * 프론트엔드 코드 제너레이터 등에 입력값으로 넣을 수 있는 순수 JSON 형태의 스펙 파일입니다.
+  * 프론트엔드 코드 제너레이터 등에 입력값으로 넣을 수 있는 순수 JSON 형태의 스펙 파일
 

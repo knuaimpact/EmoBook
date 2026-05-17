@@ -477,6 +477,7 @@ id INT AUTO_INCREMENT PRIMARY KEY
 | child_profile_id | INTEGER FK → child_profiles | 아이 프로필 ID |
 | story_id | INTEGER FK → stories | 동화 ID |
 | current_scene_id | INTEGER FK → story_scenes | 현재 장면 |
+| voice_profile_id | INTEGER FK → voice_profiles | 사용할 음성 프로필 |
 | status | ENUM(active, completed, abandoned) | 세션 상태 |
 | created_at | TIMESTAMP | 생성일 |
 | updated_at | TIMESTAMP | 수정일 |
