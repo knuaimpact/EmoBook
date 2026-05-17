@@ -4,4 +4,8 @@ __pycache__/
 *.py[cod]
 local_storage/*
 !local_storage/.gitkeep
-
+.yml
+EMOBOOK_planning_v2.md
+*_v2.md
+interactive_story_app_planning.md
+test.md

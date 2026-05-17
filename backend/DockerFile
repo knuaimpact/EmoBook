@@ -1,0 +1,35 @@
+# 1. Base Image
+FROM python:3.10-slim
+
+# 2. Set environment variables
+# PYTHONDONTWRITEBYTECODE: 파이썬이 .pyc 파일을 쓰지 않도록 설정
+# PYTHONUNBUFFERED: 파이썬 출력이 버퍼링 없이 즉시 터미널에 출력되도록 설정 (로그 확인 용이)
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    TZ=Asia/Seoul
+
+# 3. Set Working Directory
+WORKDIR /app
+
+# 4. Install system dependencies (psycopg2 등 C 확장이 필요한 패키지를 위해 필요할 수 있음)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 5. Install Python dependencies
+# 캐시를 활용하기 위해 requirements.txt만 먼저 복사
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 6. Copy application code
+# 도메인 중심 구조로 리팩토링된 전체 소스코드를 복사
+COPY . /app/
+
+# 7. Expose port
+EXPOSE 8000
+
+# 8. Run the FastAPI application
+# main.py에서 app 객체를 가져와 실행
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
