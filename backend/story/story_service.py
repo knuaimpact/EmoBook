@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from story.story_model import Story
 from story.story_scene_model import StoryScene
-from app.repository.story_repository import StoryRepository
+from story.story_repository import StoryRepository
 
 
 class StoryService:

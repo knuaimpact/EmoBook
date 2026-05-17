@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
-from app.model.story import Story
-from app.model.story_scene import StoryScene
+from story.story_model import Story
+from story.story_scene_model import StoryScene
 
 
 class StoryRepository:

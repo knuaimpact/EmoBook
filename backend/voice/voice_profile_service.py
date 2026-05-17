@@ -2,8 +2,8 @@ from fastapi import HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
 from voice.voice_profile_model import VoiceProfile
-from app.repository.user_repository import UserRepository
-from app.repository.voice_profile_repository import VoiceProfileRepository
+from user.user_repository import UserRepository
+from voice.voice_profile_repository import VoiceProfileRepository
 from storage import StorageService
 from voice import ElevenLabsAPIError, ElevenLabsClient, ElevenLabsConfigurationError
 
@@ -24,7 +24,7 @@ class VoiceProfileService:
         self,
         *,
         user_id: int,
-        name: str,
+        profile_name: str,
         file: UploadFile,
     ) -> VoiceProfile:
         user = self.user_repository.get(user_id)
@@ -46,7 +46,7 @@ class VoiceProfileService:
         )
         voice_profile = self.voice_profile_repository.create(
             user_id=user_id,
-            name=name,
+            name=profile_name,
             sample_audio_url=stored.url,
             sample_audio_object_key=stored.object_key,
         )
@@ -55,7 +55,7 @@ class VoiceProfileService:
             await file.seek(0)
             audio = await file.read()
             elevenlabs_voice = await self.elevenlabs_client.create_voice(
-                name=name,
+                name=profile_name,
                 audio=audio,
                 filename=file.filename or "voice-sample.wav",
                 content_type=file.content_type,

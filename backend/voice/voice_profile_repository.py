@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.model.voice_profile import VoiceProfile, VoiceProfileStatus
+from voice.voice_profile_model import VoiceProfile, VoiceProfileStatus
 
 
 class VoiceProfileRepository:

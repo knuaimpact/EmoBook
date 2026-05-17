@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.model.scene_audio_cache import SceneAudioCache, SceneAudioStatus
+from voice.scene_audio_cache_model import SceneAudioCache, SceneAudioStatus
 
 
 class SceneAudioCacheRepository:

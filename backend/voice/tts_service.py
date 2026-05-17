@@ -2,9 +2,9 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from voice.scene_audio_cache_model import SceneAudioCache
-from app.repository.scene_audio_cache_repository import SceneAudioCacheRepository
-from app.repository.story_repository import StoryRepository
-from app.repository.voice_profile_repository import VoiceProfileRepository
+from voice.scene_audio_cache_repository import SceneAudioCacheRepository
+from story.story_repository import StoryRepository
+from voice.voice_profile_repository import VoiceProfileRepository
 from storage import StorageService
 from voice import ElevenLabsAPIError, ElevenLabsClient, ElevenLabsConfigurationError
 
