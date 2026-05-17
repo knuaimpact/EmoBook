@@ -14,7 +14,7 @@ class StoryChoiceRead(Timestamped):
 
 class SessionStartRequest(BaseModel):
     child_profile_id: int
-    voice_profile_id: int | None = None
+    voice_profile_id: int
     user_id: int  # Added temporarily until JWT is fully implemented to simulate logged-in user
 
 

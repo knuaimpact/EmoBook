@@ -20,7 +20,7 @@ class VoiceProfile(TimestampMixin, Base):
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id"), index=True, nullable=False
     )
-    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    profile_name: Mapped[str] = mapped_column(String(100), nullable=False)
     sample_audio_url: Mapped[str] = mapped_column(String(1024), nullable=False)
     sample_audio_object_key: Mapped[str] = mapped_column(String(512), nullable=False)
     provider: Mapped[str] = mapped_column(

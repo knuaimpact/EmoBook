@@ -17,7 +17,7 @@ class SessionService:
         self.db = db
 
     def start_session(
-        self, story_id: int, user_id: int, child_profile_id: int
+        self, story_id: int, user_id: int, child_profile_id: int, voice_profile_id: int
     ) -> SessionSceneRead:
         story = self.db.scalar(select(Story).where(Story.id == story_id))
         if not story:
@@ -43,6 +43,7 @@ class SessionService:
             child_profile_id=child_profile_id,
             story_id=story_id,
             current_scene_id=first_scene.id,
+            voice_profile_id=voice_profile_id,
         )
         self.db.add(session)
         self.db.commit()

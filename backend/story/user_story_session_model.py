@@ -21,6 +21,9 @@ class UserStorySession(TimestampMixin, Base):
     current_scene_id: Mapped[int] = mapped_column(
         ForeignKey("story_scenes.id"), index=True, nullable=False
     )
+    voice_profile_id: Mapped[int] = mapped_column(
+        ForeignKey("voice_profiles.id"), index=True, nullable=False
+    )
     status: Mapped[str] = mapped_column(
         String(50), nullable=False, default="active"
     )  # active, completed, abandoned
@@ -29,6 +32,7 @@ class UserStorySession(TimestampMixin, Base):
     child_profile = relationship("ChildProfile", back_populates="sessions")
     story = relationship("Story", back_populates="sessions")
     current_scene = relationship("StoryScene")
+    voice_profile = relationship("VoiceProfile")
     choice_logs = relationship(
         "UserChoiceLog", back_populates="session", cascade="all, delete-orphan"
     )

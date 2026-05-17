@@ -5,7 +5,7 @@ from common.common_schema import Timestamped
 class VoiceProfileRead(Timestamped):
     id: int
     user_id: int
-    name: str
+    profile_name: str
     sample_audio_url: str
     sample_audio_object_key: str
     provider: str

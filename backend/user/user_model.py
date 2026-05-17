@@ -14,6 +14,9 @@ class User(TimestampMixin, Base):
     )
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+    role: Mapped[str] = mapped_column(
+        String(50), default="user", server_default="user", nullable=False
+    )
 
     voice_profiles = relationship(
         "VoiceProfile",

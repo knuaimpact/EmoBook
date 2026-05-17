@@ -15,9 +15,9 @@ class StorySceneRead(Timestamped):
 class StoryListItem(Timestamped):
     id: int
     title: str
-    summary: str | None = None
+    description: str | None = None
     cover_image_url: str | None = None
-    age_range: str | None = None
+    age_group: str | None = None
 
 
 class StoryDetail(StoryListItem):

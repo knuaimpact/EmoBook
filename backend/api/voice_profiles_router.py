@@ -17,7 +17,7 @@ router = APIRouter(prefix="/voice-profiles", tags=["voice-profiles"])
 @router.post("", response_model=VoiceProfileRead, status_code=201)
 async def upload_parent_voice(
     user_id: int = Form(...),
-    name: str = Form(...),
+    profile_name: str = Form(...),
     file: UploadFile = File(...),
     db: Session = Depends(get_database),
     storage_service: StorageService = Depends(get_storage_service),
@@ -29,6 +29,6 @@ async def upload_parent_voice(
         elevenlabs_client,
     ).upload_parent_voice(
         user_id=user_id,
-        name=name,
+        profile_name=profile_name,
         file=file,
     )

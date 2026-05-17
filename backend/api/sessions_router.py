@@ -23,6 +23,7 @@ def start_session(
         story_id=story_id,
         user_id=payload.user_id,
         child_profile_id=payload.child_profile_id,
+        voice_profile_id=payload.voice_profile_id,
     )
 
 
