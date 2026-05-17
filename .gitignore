@@ -1,0 +1,31 @@
+# Security & Local Data
+.env
+backend/local_storage/*
+!backend/local_storage/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.benchmarks/
+.venv/
+env/
+venv/
+ENV/
+
+# System
+.DS_Store
+Thumbs.db
+.python-version
+
+# Planning & Docs (Kept local)
+EMOBOOK_planning_v2.md
+interactive_story_app_erd_v2.md
+interactive_story_app_planning.md
+
+# Backup & Temp
+*.bk
+test.txxt
+test.md
