@@ -1,7 +1,27 @@
 # Security & Local Data
 .env
+.env.*
+!.env.example
+!.env.*.example
 backend/local_storage/*
 !backend/local_storage/.gitkeep
+
+# Local config / secrets
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.sqlite
+*.sqlite3
+*.db
+
+# Docker local overrides / generated examples
+docker-compose.override.yml
+docker-compose.*.override.yml
+*.local.yml
+*.local.yaml
+backend/docker-compose.yml.example
 
 # Python
 __pycache__/
@@ -27,5 +47,21 @@ interactive_story_app_planning.md
 
 # Backup & Temp
 *.bk
+*.bak
+*.tmp
+*.temp
+*.log
 test.txxt
 test.md
+
+# Generated media / model artifacts
+*.wav
+*.mp3
+*.m4a
+*.flac
+*.ogg
+*.pt
+*.pth
+*.onnx
+*.ckpt
+*.safetensors
