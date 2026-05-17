@@ -86,26 +86,11 @@ uvicorn main:app --reload
 pytest tests/
 ```
 
-## 📈 현재 개발 진행 상황 (Implementation Progress)
+### 5. API 문서 확인 (서버 실행 후 접속)
+* 👉 **Swagger UI (추천)**: [http://localhost:8000/docs](http://localhost:8000/docs)
+  * 가장 일반적으로 쓰이는 인터랙티브 API 문서입니다. 화면에서 직접 `Try it out` 버튼을 눌러 API를 테스트해 볼 수 있습니다.
+* 👉 **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+  * API 스펙을 한눈에 깔끔하게 읽기 좋은 형태의 문서입니다.
+* 👉 **OpenAPI JSON**: [http://localhost:8000/openapi.json](http://localhost:8000/openapi.json)
+  * 프론트엔드 코드 제너레이터 등에 입력값으로 넣을 수 있는 순수 JSON 형태의 스펙 파일입니다.
 
-기획서 V2(v1.1) 아키텍처를 기반으로 도메인 중심 구조로 리팩토링 및 1단계 핵심 기능 개발이 완료되었습니다.
-
-### ✅ 1단계: 기본 앱/백엔드 (거의 완료됨)
-- **인증 (Auth):** 회원가입, 로그인 및 JWT 기반 보안 검증 완료 (`bcrypt` 패스워드 해싱)
-- **프로필 (User):** 아이 프로필(이름, 나이, 선호 스타일) 등록 및 조회 기능 완료
-- **동화 세션 관리 (Story):**
-  - 인터랙티브 동화: 선택지(`action_type`) 기반 다음 장면 이동 및 선택 기록 저장
-  - 일반(Linear) 동화: 순차적 이야기 진행을 위한 `/next` API 추가 완료
-  - 읽던 장면부터 이어서 보는 **세션 복원 기능** 구현 완료
-
-### 🏗️ 데이터베이스 모델링 (100% 완료)
-- V2 기획서 요구사항에 따른 모든 테이블 구조 업데이트 완료
-  - `story_type` (일반/인터랙티브 구분)
-  - `emotion_tag`, `voice_settings_hash` (TTS 파이프라인 캐싱용 복합 키)
-  - 비동기 작업 추적을 위한 `tts_jobs`, `story_generation_jobs` 테이블 신규 생성
-
-### ⏳ 향후 개발 예정 (진행 대기)
-- **2단계 (Admin API):** 관리자가 동화, 장면, 감정 태그, 선택지를 DB에 입력할 수 있는 백오피스 API
-- **3단계 (TTS Pipeline):** 부모 음성 모델(`voice_profile`)을 활용하여 ElevenLabs API와 통신하고, `emotion_tag` 기반의 오디오 생성 및 스토리지 캐싱 로직 구현
-- **4단계 (Story Agent):** `generate_scene` 선택지 시 Gemini/OpenAI를 호출하여 다음 장면 및 선택지를 동적으로 생성하는 LLM 연동 파이프라인
-- **5단계 (최적화):** Redis 세션 캐싱 및 오디오 Pre-generation(비동기 큐) 구현
