@@ -7,7 +7,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     app_name: str = "EmoBook API"
     api_prefix: str = "/api/v1"
-    database_url: str = "mysql+pymysql://emobook:emobook@localhost:3306/emobook"
+    # MySQL 
+    # database_url: str = "mysql+pymysql://emobook:emobook@localhost:3306/emobook"
+    database_url: str = "postgresql://emobook:emobook@localhost:5432/emobook"
     local_storage_root: Path = Path("backend/local_storage")
     public_storage_base_url: str = "/storage"
     elevenlabs_api_key: str | None = None

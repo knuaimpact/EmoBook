@@ -1,20 +1,18 @@
+version: '3.8'
+
 services:
-  mysql:
-    image: mysql:8.4
-    container_name: emobook-mysql
+  db:
+    image: postgres:16-alpine
+    container_name: emobook_postgres
+    restart: always
     environment:
-      MYSQL_DATABASE: emobook
-      MYSQL_USER: emobook
-      MYSQL_PASSWORD: emobook
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qweqwe123!
+      POSTGRES_DB: emobook
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - emobook-mysql-data:/var/lib/mysql
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  emobook-mysql-data:
-
+  postgres_data:
